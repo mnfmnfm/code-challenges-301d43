@@ -33,7 +33,7 @@ const errands = [
 ];
 
 const howManyTreats = (arr) => {
-  // Solution code here...
+  return arr[2].items[1].quantity;
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ const howManyTreats = (arr) => {
 // ------------------------------------------------------------------------------------------------
 
 const battleship = (board, row, col) => {
-  // Solution code here...
+  return (board[row][col] === '#' ? 'hit' : 'miss');
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -69,7 +69,9 @@ const battleship = (board, row, col) => {
 // ------------------------------------------------------------------------------------------------
 
 const calculateProduct = (numbers) => {
-  // Solution code here...
+  let ans = 1;
+  numbers.forEach(innerArr => innerArr.forEach(num => ans *= num));
+  return ans;
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -77,7 +79,7 @@ const calculateProduct = (numbers) => {
 //
 // Write a function named averageDailyTemperature that accepts a two-dimensional array representing
 // average daily temperatures grouped week-by-week.
-// Calculate the average daily temperature during that entire period. (Your output should be a single number.)
+// Return a single number, the average temperature over that entire period.
 // Write your function so it could accept an array with any number of weeks given to it.
 // ------------------------------------------------------------------------------------------------
 
@@ -112,14 +114,28 @@ let lowestWeeklyTemperatureData = [
 ];
 
 const lowestWeeklyAverage = (weather) => {
-  // Solution code here...
+  // SOLUTION DOOR-SIDE
+  let answer = Number.MAX_SAFE_INTEGER;
+  weather.forEach(week => {
+    if (week.average() < answer) {
+      answer = week.average();
+    }
+  });
+  return answer;
+
+  // SOLUTION WHITEBOARD-SIDE
+  // let averages = [];
+  // weather.forEach(week => {
+  //   averages.push(week.average());
+  //})
+  // return Math.min(...averages);
 };
 
 // ------------------------------------------------------------------------------------------------
 // CHALLENGE 7
 //
 // Write a function called excel that accepts a string representing rows and columns.
-// Rows are seperated by newline "\n" characters. Columns are seperated by spaces.
+// Rows are seperated by newline "\n" characters. Columns are separated by commas.
 // You should parse the string as rows and columns and compute the sum of the values for each row.
 // Return an array with the sum of the values in each row.
 //
@@ -141,7 +157,14 @@ const lowestWeeklyAverage = (weather) => {
 // ------------------------------------------------------------------------------------------------
 
 const excel = (str) => {
-  // Solution code here...
+  const answer = [];
+  str.split('\n').forEach( row => {
+    const splitRow = row.split(',');
+    let rowSum = 0;
+    splitRow.forEach(num => rowSum += parseInt(num));
+    answer.push(rowSum);
+  });
+  return answer;
 };
 
 // ------------------------------------------------------------------------------------------------
