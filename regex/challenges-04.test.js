@@ -39,7 +39,13 @@ const isCapitalized = (string) => {
 // ------------------------------------------------------------------------------------------------
 
 const citiesAtoJ = (cities) => {
-  // Solution code here...
+  const answer = [];
+  cities.forEach(city => {
+    if (/^[A-J]/.test(city)) {
+      answer.push(city);
+    }
+  });
+  return answer;
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -55,7 +61,39 @@ const citiesAtoJ = (cities) => {
 // ------------------------------------------------------------------------------------------------
 
 const matchMonth = (input) => {
-  // Solution code here...
+  // let match = false;
+  // if(/^October/.test(input) || /^Oct$/.test(input) || /^october/.test(input) || /^oct$/.test(input)) {
+  //   match = true;
+  // }
+  // return match;
+
+  // let regex = /[Oo]ct/;
+  // if (input.length === 3 || input.length === 7){
+  //   return regex.test(input);
+  // } else {
+  //   return false;
+  // }
+
+  let octTest = /^o?O?ct(ober)?$/;
+  return octTest.test(input);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // /^[oO]?(ct)(ober)?$/
+  // /^[Oo]ct(ober)?$/
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -105,7 +143,7 @@ let hangman = (str) => {
 const seashells = 'She sells seashells by the seashore. The shells she sells are surely seashells. So if she sells shells on the seashore, I\'m sure she sells seashore shells.';
 
 const findShells = (phrase) => {
-  // Solution code here...
+  return phrase.match(/\w*ells\b/g);
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -119,28 +157,28 @@ const findShells = (phrase) => {
 //
 // ------------------------------------------------------------------------------------------------
 
-describe('Testing challenge 1', () => {
-  test('It should return true if the input is a number', () => {
-    expect(isNum(1234567890)).toBeTruthy();
-    expect(isNum('12345')).toBeTruthy();
-  });
-  test('It should return true if the input contains a number', () => {
-    expect(isNum('h3llo w0rld')).toBeTruthy();
-  });
-  test('It should return false if the input does not contain a number', () => {
-    expect(isNum('hello world')).toBeFalsy();
-    expect(isNum('')).toBeFalsy();
-  });
-});
+// describe('Testing challenge 1', () => {
+//   test('It should return true if the input is a number', () => {
+//     expect(isNum(1234567890)).toBeTruthy();
+//     expect(isNum('12345')).toBeTruthy();
+//   });
+//   test('It should return true if the input contains a number', () => {
+//     expect(isNum('h3llo w0rld')).toBeTruthy();
+//   });
+//   test('It should return false if the input does not contain a number', () => {
+//     expect(isNum('hello world')).toBeFalsy();
+//     expect(isNum('')).toBeFalsy();
+//   });
+// });
 
-describe('Testing challenge 2', () => {
-  test('It should only return words that begin with a capital letter', () => {
-    const capitalResult = isCapitalized('We only want to Return the Words that begin With a capital Letter');
+// describe('Testing challenge 2', () => {
+//   test('It should only return words that begin with a capital letter', () => {
+//     const capitalResult = isCapitalized('We only want to Return the Words that begin With a capital Letter');
 
-    expect(capitalResult).toStrictEqual([ 'We', 'Return', 'Words', 'With', 'Letter' ]);
-    expect(capitalResult.length).toStrictEqual(5);
-  });
-});
+//     expect(capitalResult).toStrictEqual([ 'We', 'Return', 'Words', 'With', 'Letter' ]);
+//     expect(capitalResult.length).toStrictEqual(5);
+//   });
+// });
 
 describe('Testing challenge 3', () => {
   let cities = ['Cleveland', 'San Diego', 'Birmingham', 'Seattle', 'Miami', 'New York City', 'Omaha', 'Portland', 'Austin', 'Boston', 'Newport Beach', 'Hoboken'];
