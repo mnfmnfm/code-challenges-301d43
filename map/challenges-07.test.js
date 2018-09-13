@@ -12,6 +12,23 @@
 // For example, twoToThe([1,2,3]) returns [2,4,8] because 2 ^ 1 = 2, 2 ^ 2 = 4, and 2 ^ 4 = 8.
 // ------------------------------------------------------------------------------------------------
 
+function myMap(arr, fun) {
+  const answer = [];
+  // goes through every item of the array
+  //   applies the fun
+  //   puts the result of the fun into our answer array
+  for(let i = 0; i < arr.length; i++) {
+    answer.push(fun(arr[i], i));
+  }
+  return answer;
+}
+
+function myForEach(arr, fun) {
+  for(let i = 0; i < arr.length; i++) {
+    fun(arr[i], i, arr);
+  }
+}
+
 const forLoopTwoToThe = (input) => {
   const answer = [];
   for (const num of input) {
@@ -44,7 +61,8 @@ const forEachTwoToThe = (input) => {
 // ------------------------------------------------------------------------------------------------
 
 const mapTwoToThe = (input) => {
-  return input.map(x => Math.pow(2, x));
+  return myMap(input, x => Math.pow(2, x));
+  // return input.map(x => Math.pow(2, x));
 };
 
 // ------------------------------------------------------------------------------------------------
