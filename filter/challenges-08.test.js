@@ -1,5 +1,16 @@
 'use strict';
 
+
+const myFilter = (arr, callback) => {
+  const answer = [];
+  for (let i = 0; i < arr.length; i++) {
+    if(callback(arr[i], i, arr)) {
+      answer.push(arr[i]);
+    }
+  }
+  return answer;
+};
+
 // ------------------------------------------------------------------------------------------------
 // CHALLENGE 1
 //
@@ -154,7 +165,9 @@ const getCharactersWithoutChildren = (input) => input.filter(person => !person.c
 // For example: evenOddNumericValues(['Gregor', 2, 4, 1]) returns ['even', 'even', 'odd'].
 // ------------------------------------------------------------------------------------------------
 
-const evenOddNumericValues = (input) => input.filter(x => typeof(x) === 'number').map(x => x % 2 === 0 ? 'even' : 'odd');
+const evenOddNumericValues = (input) => input
+  .filter(x => typeof(x) === 'number')
+  .map(x => x % 2 ? 'odd' : 'even');
 
 // ------------------------------------------------------------------------------------------------
 // TESTS
