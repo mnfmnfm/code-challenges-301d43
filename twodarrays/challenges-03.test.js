@@ -220,8 +220,28 @@ const detectTicTacToeWin = (board) => {
 // ];
 // ------------------------------------------------------------------------------------------------
 
+const check = (arr, row, col) => {
+  if (row >= 0 && row < arr.length && col >= 0 && col < arr[0].length && arr[row][col] === '*') {
+    return 1;
+  } else {
+    return 0;
+  }
+}
 const minesweeper = (board) => {
-  // Solution code here...
+  return board.map( (row, rowIndex) => {
+    return row.map( (elt, colIndex) => {
+      if (elt === '*') return 9;
+      return [ [rowIndex - 1, colIndex - 1],
+               [rowIndex - 1, colIndex],
+               [rowIndex - 1, colIndex + 1],
+               [rowIndex, colIndex - 1],
+               [rowIndex, colIndex + 1],
+               [rowIndex + 1, colIndex - 1],
+               [rowIndex + 1, colIndex],
+               [rowIndex + 1, colIndex + 1]]
+      .map( locs => check(board, ...locs)).reduce( (ans, x) => ans + x);
+    });
+  });
 };
 
 // ------------------------------------------------------------------------------------------------

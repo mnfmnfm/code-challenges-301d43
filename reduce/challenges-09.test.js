@@ -11,6 +11,14 @@
 
 const countNumberOfElements = (input) => input.reduce( (ans) => ans + 1, 0);
 
+const countEltsFor = (input) => {
+  let ans = 0;
+  for (let i = 0; i < input.length; i++) {
+    ans = ans + 1;
+  }
+  return ans;
+};
+
 // ------------------------------------------------------------------------------------------------
 // CHALLENGE 2
 //
@@ -104,7 +112,17 @@ const snorlaxData = {
   weight: 4600,
 };
 
-const extractStat = (statName, input) => input.reduce( (ans, x) => ans || (x.stat.name === statName ? x : null));
+const extractStat = (statName, input) => input.reduce( (ans, x) => ans || (x.stat.name === statName ? x : null), null);
+
+// const extractStat = (statName, input) => input.reduce( (ans, x) => {
+//   if (ans !== null) {
+//     return ans;
+//   } else if (x.stat.name === statName) {
+//     return x;
+//   } else {
+//     return null;
+//   }
+// }, null);
 
 // ------------------------------------------------------------------------------------------------
 // CHALLENGE 4
@@ -126,7 +144,7 @@ const calculateAverage = (input) => input.reduce((ans, x) => ans + x/input.lengt
 // ------------------------------------------------------------------------------------------------
 
 const extractChildren = input => input
-  .filter(char => char.name.includes('a'))
+  .filter(char => /a/i.test(char.name))
   .reduce( (ans, char) => char.children ? ans.concat(char.children) : ans, []);
 
 // ------------------------------------------------------------------------------------------------
@@ -150,7 +168,7 @@ const reversedString = (input) => input.split('').reduce( (ans, x) => x + ans);
 // ------------------------------------------------------------------------------------------------
 
 const isPrime = (value) => {
-  for (let i = 2; i < value; i++) {
+  for (let i = 2; i < Math.sqrt(value); i++) {
     if (value % i === 0) {
       return false;
     }
@@ -159,6 +177,7 @@ const isPrime = (value) => {
 };
 
 const countPrimeNumbers = (input) => input.reduce( (ans, x) => isPrime(x) ? ans + 1 : ans, 0);
+const countPrimeFiltery = (input) => input.filter(isPrime).length;
 
 // ------------------------------------------------------------------------------------------------
 // CHALLENGE 8
@@ -215,9 +234,23 @@ let starWarsData = [{
   eye_color: 'brown',
   birth_year: '19BBY',
   gender: 'female'
-}]
+}];
 
 const returnNames = (data) => data.reduce( (ans, x) => ans.concat([x.name]), []);
+
+
+const myReduce = (arr, cb, initialAnswer) => {
+  let i = 0;
+  let answerSoFar = initialAnswer;
+  if (answerSoFar === undefined) {
+    answerSoFar = arr[0];
+    i = 1;
+  }
+  for(; i < arr.length; i++) {
+    answerSoFar = cb(answerSoFar, arr[i], i);
+  }
+  return answerSoFar;
+};
 
 // ------------------------------------------------------------------------------------------------
 // TESTS
@@ -245,6 +278,15 @@ describe('Testing challenge 2', () => {
 describe('Testing challenge 3', () => {
   test('It should return any stats that match the input', () => {
     expect(extractStat('speed', snorlaxData.stats)).toStrictEqual({ stat: { url: 'https://pokeapi.co/api/v2/stat/6/', name: 'speed' }, effort: 5, baseStat: 30 });
+    expect(extractStat('special-attack', snorlaxData.stats)).toStrictEqual({
+      stat: {
+        url: 'https://pokeapi.co/api/v2/stat/4/',
+        name: 'special-attack',
+      },
+      effort: 9,
+      baseStat: 65,
+    });
+    expect(extractStat('not a real stat', snorlaxData.stats)).toBeNull();
   });
 });
 
